@@ -16,6 +16,6 @@ pipeline{
     }
 }
 def getVersion(){
-    def version = sh returnStdout: true, script: 'git rev-parse --short HEAD'
+    def version = bat returnStdout: true, script: 'git rev-parse --short HEAD'
     return version
 }
