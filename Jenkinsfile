@@ -1,6 +1,6 @@
 pipeline{
   agent any
-  tools{ jdk 'JDK17' }
+  tools{jdk 'JDK17'}
   environment{
     JAVA_HOME = 'C:\\Program Files\\Java\\jdk-17'
     DOCKER_TAG = getVersion()
@@ -8,17 +8,17 @@ pipeline{
   stages{
     stage('Clone stage'){
       steps{
-        git https://github.com/Dechateau2035/datacamp_docker_angular.git
+        git branch: 'main', url: 'https://github.com/Dechateau2035/datacamp_docker_angular.git'
       }
     }
     stage('Docker Build'){
       steps{
-        bat 'docker build -t kamklesh/angularapp:${DOCKER_TAG}.'
+        bat 'docker build -t kamklesh/angularapp:${DOCKER_TAG} .'
       }
     }
   }
 }
 def getVersion(){
-    def version = bat returnStdout: true, script: 'git rev-parse --short HEAD'
+    def version = bat(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
     return version
 }
